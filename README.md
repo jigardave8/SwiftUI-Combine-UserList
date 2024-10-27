@@ -21,7 +21,7 @@ This project includes structured MVVM architecture, a basic network service laye
 
 
 <p align="center">
-    <img src="https://github.com/user-attachments/assets/4ba8f3cb-8f50-492f-a2c6-d882a4be7a2b" alt="Simulator Screenshot" width="150" height="150">
+    <img src="https://github.com/user-attachments/assets/4ba8f3cb-8f50-492f-a2c6-d882a4be7a2b" alt="Simulator Screenshot" width="300" height="300">
 </p>
 
 
