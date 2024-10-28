@@ -12,9 +12,28 @@ class UserListViewModel: ObservableObject {
     @Published var users: [UserModel] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
+    @Published var searchText: String = ""
+    @Published var sortBy: SortOption = .name
 
     private var cancellables = Set<AnyCancellable>()
     private let userService = UserNetworkService()
+
+    enum SortOption {
+        case name, email
+    }
+
+    var filteredAndSortedUsers: [UserModel] {
+        var filtered = users.filter {
+            searchText.isEmpty || $0.name.lowercased().contains(searchText.lowercased())
+        }
+        switch sortBy {
+        case .name:
+            filtered.sort { $0.name < $1.name }
+        case .email:
+            filtered.sort { $0.email < $1.email }
+        }
+        return filtered
+    }
 
     func loadUsers() {
         isLoading = true
@@ -28,5 +47,9 @@ class UserListViewModel: ObservableObject {
                 self?.users = users
             })
             .store(in: &cancellables)
+    }
+
+    func updateSortOption(to option: SortOption) {
+        sortBy = option
     }
 }

@@ -13,12 +13,26 @@ struct UserListView: View {
     var body: some View {
         NavigationView {
             VStack {
+                // Search Bar
+                TextField("Search users", text: $viewModel.searchText)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+
+                // Sort Picker
+                Picker("Sort by", selection: $viewModel.sortBy) {
+                    Text("Name").tag(UserListViewModel.SortOption.name)
+                    Text("Email").tag(UserListViewModel.SortOption.email)
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding()
+
+                // Content
                 if viewModel.isLoading {
                     ProgressView("Loading…")
                 } else if let errorMessage = viewModel.errorMessage {
                     Text("Error: \(errorMessage)")
                 } else {
-                    List(viewModel.users) { user in
+                    List(viewModel.filteredAndSortedUsers) { user in
                         VStack(alignment: .leading) {
                             Text(user.name)
                                 .font(.headline)
