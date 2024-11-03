@@ -25,6 +25,8 @@ struct UserListView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding()
+                
+                
 
                 // Content
                 if viewModel.isLoading {
